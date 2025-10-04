@@ -1,29 +1,18 @@
 pipeline {
     agent any
 
-    tools {
-        nodejs "NodeJS"
-    }
-
     stages {
-        stage('Clone') {
+        stage('Build') {
             steps {
-                git 'https://github.com/RuhanseeNethusa/bookshelf-api.git'
-            }
-        }
-        stage('Install') {
-            steps {
+                echo 'Building the application...'
                 sh 'npm install'
             }
         }
+
         stage('Test') {
             steps {
+                echo 'Running tests...'
                 sh 'npm test'
-            }
-        }
-        stage('Run') {
-            steps {
-                sh 'node app.js'
             }
         }
     }
