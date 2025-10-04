@@ -1,6 +1,6 @@
-const request = require('supertest');
-const app = require('../app'); // Import the Express app
-const { expect } = require('chai');
+import request from 'supertest';
+import { expect } from 'chai';
+import app from '../app.js';
 
 describe('Books API', function () {
   it('GET /books should return an array', async function () {
