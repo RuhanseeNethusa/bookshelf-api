@@ -1,7 +1,19 @@
 import request from 'supertest';
 import { expect } from 'chai';
-import app from '../app.js';   // ❌ will break
+import app from '../app.js'; // ✅ correctly imported once
 
-// ✅ fix by using dynamic import
-const appModule = await import('../app.js');
-const app = appModule.default || appModule;
+describe('Books API', function () {
+  it('GET /books should return an array', async function () {
+    const res = await request(app).get('/api/books'); // ✅ add (app) and correct path
+    expect(res.status).to.equal(200);
+    expect(res.body).to.be.an('array');
+  });
+
+  it('POST /books should add a new book', async function () {
+    const res = await request(app)
+      .post('/api/books') // ✅ corrected route to match your Express router
+      .send({ title: '1984', author: 'George Orwell' });
+    expect(res.status).to.equal(201);
+    expect(res.body.message).to.equal('Book added!');
+  });
+});
