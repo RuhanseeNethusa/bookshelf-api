@@ -1,13 +1,15 @@
 import express from 'express';
-import booksRoute from './routes/books.js';
+const router = express.Router();
 
-const app = express();
+let books = [];
 
-app.use(express.json());
-app.use('/books', booksRoute);
+router.get('/', (req, res) => {
+  res.json(books);
+});
 
-const PORT = 3000;
-app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
+router.post('/', (req, res) => {
+  books.push(req.body);
+  res.status(201).json({ message: 'Book added!', book: req.body });
+});
 
-
-export default app;
+export default router;
