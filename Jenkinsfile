@@ -1,25 +1,27 @@
 pipeline {
     agent any
-
     stages {
         stage('Build') {
             steps {
-                echo 'Building the application...'
+                echo '🔧 Installing dependencies...'
                 sh 'npm install'
             }
         }
-        stage('Test') {
-  steps {
-    echo 'Running tests...'
-    sh 'NODE_ENV=test npm test'
-  }
-}
-
-
-        stage('Test') {
+        stage('Run Unit Tests') {
             steps {
-                echo 'Running tests...'
+                echo '🧪 Running tests...'
                 sh 'npm test'
+            }
+        }
+        stage('Code Quality Check') {
+            steps {
+                echo '🔍 Running ESLint...'
+                sh 'npx eslint .'
+            }
+        }
+        stage('Finish') {
+            steps {
+                echo '✅ Pipeline completed.'
             }
         }
     }
